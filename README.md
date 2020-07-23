@@ -1,6 +1,4 @@
-# woo-variation-stock
-A WordPress plugin for WooCommerce users.
-
+# Stock Overview for WooCommerce
 **See stock info on a per-variation level in the admin dashboard Products list.**
 
 If your admin dashboard Products list is becoming cluttered with too many columns, you can easily show/hide columns by clicking the Screen Options dropdown on the top right, unticking some columns, and clicking Apply.
