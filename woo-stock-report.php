@@ -1,16 +1,23 @@
 <?php
 
 /**
- * Plugin Name: WooCommerce Variation Stock
+ * Plugin Name: Stock Report for WooCommerce
  * Description: See stock on a per-variation level on the admin dashboard Products page without having to click into the product.
  * Version: 1.0.0
  * License: MIT
- * Author: Dado
+ * Author: Dado Agency
  * Author URI: https://dadoagency.com
  * Requires PHP: 5.3.0
+ * WC requires at least: 3.2
+ * WC tested up to: 4.3
  */
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+// Just exit if directly accessed
+if (!defined('ABSPATH')) exit;
+
+// Just exit if WooCommerce isn't installed and enabled
+if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) exit;
+
 
 // Unset the default stock column and add our own
 add_filter('manage_edit-product_columns', 'dado_customise_columns');

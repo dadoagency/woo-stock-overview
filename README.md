@@ -8,6 +8,6 @@ If your admin dashboard Products list is becoming cluttered with too many column
 There is no settings page for this plugin as it currently is not configurable at all.
 
 # Roadmap
-- [ ] Check if WooCommerce plugin is installed and activated so as not to crash on sites without WooCommerce
 - [ ] Allow you to configure the "Low stock" threshold
 - [ ] Make columns sortable and replace 'Filter by Stock Status' with a working filter on the new stock statuses (low stock, in stock, out of stock)
+
