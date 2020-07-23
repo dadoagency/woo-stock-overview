@@ -25,7 +25,6 @@ add_action( 'manage_posts_custom_column', 'dado_populate_variation_stock' );
 function dado_populate_variation_stock( $column_name ) {
  
 	if( $column_name  == 'var_stock' ) {
-		// if you suppose to display multiple variation_stock, use foreach();
 		$productId =  get_the_ID(); // taxonomy name
 		$product = wc_get_product($productId);
 		
@@ -71,7 +70,6 @@ function dado_populate_variation_stock( $column_name ) {
 	}
 	
 	if( $column_name  == 'var_stock_summary' ) {
-		// if you suppose to display multiple variation_stock, use foreach();
 		$productId =  get_the_ID(); // taxonomy name
 		$product = wc_get_product($productId);
 		
