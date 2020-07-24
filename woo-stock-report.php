@@ -20,8 +20,8 @@ if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins',
 
 
 // Unset the default stock column and add our own
-add_filter('manage_edit-product_columns', 'dado_customise_columns');
-function dado_customise_columns($columns) {
+add_filter('manage_edit-product_columns', 'srfwc_customise_columns');
+function srfwc_customise_columns($columns) {
   $new_columns = (is_array($columns)) ? $columns : array();
 
   // Remove the default stock column
@@ -37,8 +37,8 @@ function dado_customise_columns($columns) {
 }
 
 // Populate the new stock columns
-add_action('manage_posts_custom_column', 'dado_populate_variation_stock');
-function dado_populate_variation_stock($column_name) {
+add_action('manage_posts_custom_column', 'srfwc_populate_variation_stock');
+function srfwc_populate_variation_stock($column_name) {
   // TODO: Make this configurable
   $LOW_STOCK_THRESHOLD = 4;
 
@@ -57,16 +57,16 @@ function dado_populate_variation_stock($column_name) {
 
         if ($stock < $LOW_STOCK_THRESHOLD and $stock > 0) {
           // Low stock
-          echo get_stock_detail_html('orange', $variation_name . ': ' . $stock . ' in stock');
+          echo srfwc_get_stock_detail_html('orange', $variation_name . ': ' . $stock . ' in stock');
         } elseif ($stock == 0) {
           // Out of stock
-          echo get_stock_detail_html('red', $variation_name . ': out of stock');
+          echo srfwc_get_stock_detail_html('red', $variation_name . ': out of stock');
         } elseif ($stock < 0) {
           // On backorder
-          echo get_stock_detail_html('purple', $variation_name . ': ' . abs( $stock ) . ' on backorder');
+          echo srfwc_get_stock_detail_html('purple', $variation_name . ': ' . abs( $stock ) . ' on backorder');
         } else {
           // In stock
-          echo get_stock_detail_html('green', $variation_name . ': ' . $stock . ' in stock');
+          echo srfwc_get_stock_detail_html('green', $variation_name . ': ' . $stock . ' in stock');
         }
       }
     }
@@ -76,16 +76,16 @@ function dado_populate_variation_stock($column_name) {
       $stock = $product->get_stock_quantity();
       if ($stock < $LOW_STOCK_THRESHOLD and $stock > 0) {
         // Low stock
-        echo get_stock_detail_html('orange', $stock . ' in stock');
+        echo srfwc_get_stock_detail_html('orange', $stock . ' in stock');
       } elseif ($stock == 0) {
         // Out of stock
-        echo get_stock_detail_html('red', 'Out of stock');
+        echo srfwc_get_stock_detail_html('red', 'Out of stock');
       } elseif ($stock < 0) {
         // On backorder
-        echo get_stock_detail_html('purple', abs( $stock ) . ' on backorder');
+        echo srfwc_get_stock_detail_html('purple', abs( $stock ) . ' on backorder');
       } else {
         // In stock
-        echo get_stock_detail_html('green', $stock . ' in stock');
+        echo srfwc_get_stock_detail_html('green', $stock . ' in stock');
       }
     }
   }
@@ -121,13 +121,13 @@ function dado_populate_variation_stock($column_name) {
       // Otherwise, everything must be in stock.
 
       if ($number_backorder > 0) {
-        echo get_stock_summary_html('purple', 'On backorder | ' . $number_backorder . ($number_backorder == 1 ? ' variation' : ' variations'));
+        echo srfwc_get_stock_summary_html('purple', 'On backorder | ' . $number_backorder . ($number_backorder == 1 ? ' variation' : ' variations'));
       } elseif ($number_out_of_stock > 0) {
-        echo get_stock_summary_html('red', 'Out of stock | ' . $number_out_of_stock . ($number_out_of_stock == 1 ? ' variation' : ' variations'));
+        echo srfwc_get_stock_summary_html('red', 'Out of stock | ' . $number_out_of_stock . ($number_out_of_stock == 1 ? ' variation' : ' variations'));
       } elseif ($number_low_stock > 0) {
-        echo get_stock_summary_html('orange', 'Low stock | ' . $number_low_stock . ($number_low_stock == 1 ? ' variation' : ' variations'));
+        echo srfwc_get_stock_summary_html('orange', 'Low stock | ' . $number_low_stock . ($number_low_stock == 1 ? ' variation' : ' variations'));
       } else {
-        echo get_stock_summary_html('green', 'In stock | all variations');
+        echo srfwc_get_stock_summary_html('green', 'In stock | all variations');
       }
     }
     
@@ -135,22 +135,22 @@ function dado_populate_variation_stock($column_name) {
     else {
       $stock = $product->get_stock_quantity();
       if ($stock > 0 and $stock < $LOW_STOCK_THRESHOLD) {
-        echo get_stock_summary_html('orange', 'Low stock');
+        echo srfwc_get_stock_summary_html('orange', 'Low stock');
       } elseif ($stock == 0) {
-        echo get_stock_summary_html('red', 'Out of stock');
+        echo srfwc_get_stock_summary_html('red', 'Out of stock');
       } elseif ($stock < 0) {
-        echo get_stock_summary_html('purple', 'On backorder');
+        echo srfwc_get_stock_summary_html('purple', 'On backorder');
       } else {
-        echo get_stock_summary_html('green', 'In stock');
+        echo srfwc_get_stock_summary_html('green', 'In stock');
       }
     }
   }
 }
 
-function get_stock_detail_html($colour, $message) {
+function srfwc_get_stock_detail_html($colour, $message) {
   return '<div style="display:flex; flex-wrap:nowrap; align-items:center;"><div style="border-radius:50px; width:10px; height:10px; background-color:' . $colour . '; margin-right:5px;"></div>' . $message . '</div>';
 }
 
-function get_stock_summary_html($colour, $message) {
+function srfwc_get_stock_summary_html($colour, $message) {
   return '<div style="color:' . $colour . ';">' . $message . '</div>';
 }
